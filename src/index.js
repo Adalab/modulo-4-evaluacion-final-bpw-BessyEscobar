@@ -4,6 +4,8 @@ const path = require('path'); // res.sendFile(path.join(__dirname, '../public/iv
 const cors = require('cors');
 const mysql = require('mysql2/promise');
 
+require('dotenv').config();
+
 //create variables
 const app = express();
 const port = 3000;
@@ -13,10 +15,10 @@ app.use(cors());
 
 //data conection 
 const dataBaseConfig = {
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'rootbessy',
-  database: 'recetas_db'
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASS,
+  database: process.env.MYSQL_SCHEMA
 };
 
 //settings 
