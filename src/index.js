@@ -75,14 +75,14 @@ app.get('/api/recetas/:id', async (req, res) => {
 //create new recpe
 app.post ('/api/recetas', async (req, res) => {
   const data = req.body;
-  const { id, nombre, ingredientes, instucciones } = data;
-  if (!nombre || !ingredientes || !instucciones) {
+  const { id, nombre, ingredientes, instrucciones } = data;
+  if (!nombre || !ingredientes || !instrucciones) {
     return res.status(400).json( { success: false, message: 'Required fields are missing' } )
   }
   try {
     const connection = await getConnect();
-    const sql = "INSERT INTO recetas ( id, nombre, ingredientes, instucciones ) VALUES ( ?, ?, ?, ? )";
-    const [results] = await connection.query(sql, [id, nombre, ingredientes, instucciones]);
+    const sql = "INSERT INTO recetas ( id, nombre, ingredientes, instrucciones ) VALUES ( ?, ?, ?, ? )";
+    const [results] = await connection.query(sql, [id, nombre, ingredientes, instrucciones]);
     connection.end();
     res.json( { success: true, id: results.insertId } );
   } catch (error) {
