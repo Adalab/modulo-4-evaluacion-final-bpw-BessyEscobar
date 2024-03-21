@@ -108,3 +108,23 @@ app.put('/api/recetas/:id', async (req, res) => {
     res.status(500).json({ success: false, message: 'oh oh error' });
   }
 });
+
+//delete recipe 
+app.delete('/api/recetas/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const connection = await getConnect();
+    await connection.query('DELETE FROM recetas WHERE id = ?', [id]);
+    connection.end();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al eliminar la receta:', error);
+    res.status(500).json({ success: false, message: 'Ha ocurrido un error' });
+  }
+});
+
+// // Iniciar el servidor
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Servidor corriendo en el puerto ${PORT}`);
+// });
