@@ -25,7 +25,7 @@ async function getConnect () {
     const connection = await mysql.createConnection(dataBaseConfig);
     return connection;
   } catch (error) {
-    console.error('Error al conectar con la base de datos:', error);
+    console.error('Failed to connect to database:', error);
     throw error;
   }
 }
@@ -39,7 +39,7 @@ app.listen(port, () => {
 
 //Endpoints
 // root for recipe
-app.get( '/recetas', async (req, res) => {
+app.get( '/api/recetas', async (req, res) => {
   try {
     const conn = await getConnect();
     const [results] = await conn.query('SELECT * FROM recetas');
@@ -55,29 +55,29 @@ app.get( '/recetas', async (req, res) => {
 });
 
 // root for recipe by id
-app.get('/recetas/:id', async (req, res) => {
+app.get('/api/recetas/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const connection = await getConnect();
     const [results] = await connection.query('SELECT * FROM recetas WHERE id = ?', [id]);
     connection.end();
     if (results.length === 0) {
-      res.status(404).json({ success: false, message: 'Receta no encontrada' });
+      res.status(404).json({ success: false, message: 'Recipe not found' });
     } else {
       res.json(results[0]);
     }
   } catch (error) {
-    console.error('Error al obtener la receta:', error);
-    res.status(500).json({ success: false, message: 'Ha ocurrido un error' });
+    console.error('Error getting recipe:', error);
+    res.status(500).json({ success: false, message: 'oh oh error' });
   }
 });
 
 //create new recpe
-app.post ('/recetas', async (req, res) => {
+app.post ('/api/recetas', async (req, res) => {
   const data = req.body;
   const { id, nombre, ingredientes, instucciones } = data;
   if (!nombre || !ingredientes || !instucciones) {
-    return res.status(400).json( { success: false, message: 'Faltan campos obligatorios' } )
+    return res.status(400).json( { success: false, message: 'Required fields are missing' } )
   }
   try {
     const connection = await getConnect();
@@ -86,8 +86,25 @@ app.post ('/recetas', async (req, res) => {
     connection.end();
     res.json( { success: true, id: results.insertId } );
   } catch (error) {
-    console.error('Error al crear la receta:', error);
-    res.status(500).json({ success: false, message: 'Ha ocurrido un error' });
+    console.error('Error creating recipe:', error);
+    res.status(500).json({ success: false, message: 'oh oh error' });
   }
 });
-//
+
+// update recipe
+app.put('/api/recetas/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, ingredientes, instrucciones } = req.body;
+  if (!nombre || !ingredientes || !instrucciones) {
+    return res.status(400).json({ success: false, message: 'Required fields are missing' });
+  }
+  try {
+    const connection = await getConnect();
+    await connection.query('UPDATE recetas SET nombre = ?, ingredientes = ?, instrucciones = ? WHERE id = ?', [nombre, ingredientes, instrucciones, id]);
+    connection.end();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error updating recipe:', error);
+    res.status(500).json({ success: false, message: 'oh oh error' });
+  }
+});
