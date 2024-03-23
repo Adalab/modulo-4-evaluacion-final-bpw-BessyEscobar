@@ -4,20 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview</title>
+    <style>
+        body{
+            box-sizing: border-box;
+            /* margin: 0;
+            padding: 0; */
+            background-color: #decee7;
+        }
+        .title{
+            text-align: center;
+        }
+        .content{
+            margin: 3rem;
+        }
+        .main{
+            padding: 1rem;
+        }
+        .desc{
+            text-align: justify;
+        }
+
+    </style>
 </head>
 <body>
-    <div>
-        <h1>Lista de Recetas</h1>
+    <div class="title">
+        <h1 class="title-list">Lista de Recetas</h1>
     </div>
 
-    <div>
+    <div class="content">
         <dl>
-            <dt>Nombre</dt>
-            <dd> <%= nombre %> </dd>
-            <dt>Ingredientes</dt>
-            <dd> <%= ingredientes %> </dd>
-            <dt>Instrucciones</dt>
-            <dd><%= instrucciones %></dd>
+            <dt class="main">Nombre</dt>
+            <dd class="desc"> <%= nombre %> </dd>
+            <dt class="main">Ingredientes</dt>
+            <dd class="desc"> <%= ingredientes %> </dd>
+            <dt class="main">Instrucciones</dt>
+            <dd class="desc"><%= instrucciones %></dd>
         </dl>
     </div>
 
