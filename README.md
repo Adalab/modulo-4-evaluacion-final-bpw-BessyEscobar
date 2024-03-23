@@ -1,6 +1,6 @@
 ## Module evaluation 4
 
-Here you can see my first technical evaluation exercise. The exercise consists of developing an API that allows inserting, modifying, listing and deleting cooking recipes using Express.js, Node.js and MySQL.
+Here you can see my final technical evaluation exercise. The exercise consists of developing an API that allows inserting, modifying, listing and deleting cooking recipes using Express.js, Node.js and MySQL.
 
 ## Prerequisites
 
@@ -29,6 +29,6 @@ BONUS:
 
 If you want to contact me for any suggestion, doubt or contribution, don't hesitate to ask me!💬
 
-- Email: [bessyescobar89@gmail.com](bessyescobar89@gamil.com)
+- Email: [bessyescobar89@gmail.com](bessyescobar89@gmail.com)
 - Linkedin: [https://www.linkedin.com/in/bessy-escobar-salgado-242224236/](https://www.linkedin.com/in/bessy-escobar-salgado-242224236/)
 - GitHub: [https://github.com/BessyEscobar](https://github.com/BessyEscobar)
