@@ -13,6 +13,8 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
+app.set('view engine', 'ejs');
+
 //data conection 
 const dataBaseConfig = {
   host: process.env.MYSQL_HOST,
@@ -125,3 +127,22 @@ app.delete('/api/recetas/:id', async (req, res) => {
   }
 });
 
+// dynamic servers
+app.get('/api/preview/:id', async (req, res) => {
+  
+  const recipeId = parseInt( req.params.id );
+
+  const connection = await getConnect();
+  const [results] = await connection.query(`SELECT recetas.* 
+  FROM recetas_db.recetas
+  WHERE recetas.id = ?`, [recipeId] );
+
+  console.log(results);
+
+  connection.end()
+
+  const data = results[0];
+
+  res.render('preview', data)
+
+});
